@@ -1,9 +1,10 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "./src/index.ts",
+  "main": "./index.ts",
   "scripts": {
-    "start": "npx nodemon ./src/index.ts"
+    "start": "npx nodemon ./index.ts",
+    "build": "cd ./frontend && npm i && npm run build"
   },
   "author": "",
   "license": "ISC",

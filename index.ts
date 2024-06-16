@@ -3,12 +3,21 @@ import cors from "cors";
 import "dotenv/config";
 import * as RecipeAPI from "./recipe-api";
 import { PrismaClient } from "@prisma/client";
+// import path from "path";
 
 const app = express();
 const prismaClient = new PrismaClient();
+const port = process.env.PORT || 5000;
 
 app.use(express.json());
 app.use(cors());
+// app.use(express.static(path.join(__dirname, './frontend/dist/index.html')));
+// app.get('*', (req, res) => {
+//   return res.sendFile(path.join(__dirname, './frontend/dist/index.html'));
+// });
+app.get('/', (req, res) => {
+  return res.json({"example": "value"});
+});
 
 app.get("/api/recipes/search", async (req, res) => {
   const searchTerm = req.query.searchTerm as string;
@@ -70,6 +79,6 @@ app.delete("/api/recipes/favourite", async (req, res) => {
   }
 });
 
-app.listen(5000, () => {
-  console.log("server running on localhost:5000");
+app.listen(port, () => {
+  console.log(`server running on localhost:${port}`);
 });
