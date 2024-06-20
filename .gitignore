@@ -1,5 +1,6 @@
 node_modules
-frontend
+backend
+# frontend
 # dist
 # Keep environment variables out of version control
-# .env
+.env

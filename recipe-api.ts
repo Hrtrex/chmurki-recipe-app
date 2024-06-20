@@ -4,7 +4,7 @@ export const searchRecipes = async (searchTerm: string, page: number) => {
   if (!apiKey) {
     throw new Error("API Key not found");
   }
-
+  // TODO: api url
   const url = new URL("https://api.spoonacular.com/recipes/complexSearch");
 
   const queryParams = {
@@ -23,7 +23,7 @@ export const searchRecipes = async (searchTerm: string, page: number) => {
     console.log(error);
   }
 };
-
+// endpoint pobranie szczegółów przepisu
 export const getRecipeSummary = async (recipeId: string) => {
   if (!apiKey) {
     throw new Error("API Key not found");

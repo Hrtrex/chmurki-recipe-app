@@ -1,5 +1,5 @@
 import { Recipe } from "./types";
-
+// URL backendu
 const app_url = "https://chmury-recipe-application.azurewebsites.net";
 export const searchRecipes = async (searchTerm: string, page: number) => {
   const baseUrl = new URL(`${app_url}/api/recipes/search`);
@@ -13,7 +13,8 @@ export const searchRecipes = async (searchTerm: string, page: number) => {
 
   return response.json();
 };
-
+// we wszystkich poniższych dane pobierane są poprzez połączenie z backendem
+// i wstrzykiwane do frontendu jako obiekty JSON
 export const getRecipeSummary = async (recipeId: string) => {
   const url = new URL(`${app_url}/api/recipes/${recipeId}/summary`);
   const response = await fetch(url);

@@ -7,16 +7,19 @@ import path from "path";
 
 const app = express();
 const prismaClient = new PrismaClient();
+
+// azure port
 const port = process.env.PORT || 8080;
 
 app.use(express.json());
 app.use(cors());
 app.use(express.static(path.join(__dirname, './dist')));
-
+// serwowanie frontendu
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, './dist/index.html'));
 });
 
+// enpoint wyszukiwanie przepisów ze spoonacular API
 app.get("/api/recipes/search", async (req, res) => {
   const searchTerm = req.query.searchTerm as string;
   const page = parseInt(req.query.page as string);
@@ -24,13 +27,13 @@ app.get("/api/recipes/search", async (req, res) => {
 
   return res.json(results);
 });
-
+// endpoint szczegóły przepisu (po kliknięciu)
 app.get("/api/recipes/:recipeId/summary", async (req, res) => {
   const recipeId = req.params.recipeId;
   const results = await RecipeAPI.getRecipeSummary(recipeId);
   return res.json(results);
 });
-
+// endpoint dodanie ulubionego przepisu do bazy danych
 app.post("/api/recipes/favourite", async (req, res) => {
   const recipeId = req.body.recipeId;
 
@@ -46,7 +49,7 @@ app.post("/api/recipes/favourite", async (req, res) => {
     return res.status(500).json({ error: "Oops, something went wrong" });
   }
 });
-
+// pobranie ulubionych przepisów z bazy danych
 app.get("/api/recipes/favourite", async (req, res) => {
   try {
     const recipes = await prismaClient.favouriteRecipes.findMany();
@@ -60,7 +63,7 @@ app.get("/api/recipes/favourite", async (req, res) => {
     return res.status(500).json({ error: "Oops, something went wrong" });
   }
 });
-
+// usunięcie ulubionego przepisu z bazy danych
 app.delete("/api/recipes/favourite", async (req, res) => {
   const recipeId = req.body.recipeId;
 
